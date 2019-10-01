@@ -86,35 +86,6 @@ def filterNotInRange(frame, min, max, colorMode):
     return filtered_frame
 
 
-def histogram_equalize(img):
-    """
-    DEPRECATED
-    Takes the input image and equalizes the histogram on HSV
-    color space.
-
-    NB: The YUV color space might not be the best color space to deal with.
-
-    :param img: BGR image.
-    :return: histogram equalized BGR image.
-
-    """
-
-    # TODO: delete this function
-
-    img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
-
-    # equalize the histogram in all the YUV channels
-    # for c in range(0, 2):
-    img_yuv[:, :, 2] = cv2.equalizeHist(img_yuv[:, :, 2])
-    img_yuv[:, :, 1] = cv2.equalizeHist(img_yuv[:, :, 1])
-    img_yuv[:, :, 0] = cv2.equalizeHist(img_yuv[:, :, 0])
-
-    # convert the YUV image back to RGB format
-    img_output = cv2.cvtColor(img_yuv, cv2.COLOR_LAB2BGR)
-
-    return img_output
-
-
 def closing(img, kernel):
     """
     Dilatation followed by erosion, fills small holes in image
@@ -228,30 +199,6 @@ def blob_detector(filtered_frame, original_frame):
                                             cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
     return keypointsOriginal, keypointsDark
-
-# TODO check that this function is indeed useless, if this is the case
-# delete this
-def contour_blob(filtered_frame, original_frame, blob_thershold, debug=False):
-
-    hsv = cv2.cvtColor(filtered_frame, cv2.COLOR_BGR2HSV)
-    _, saturation, _ = cv2.split(hsv)
-
-    _, thresholded = cv2.threshold(saturation, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-    contours, _ = cv2.findContours(thresholded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-    contour_list = []
-    for contour in contours:
-        area = cv2.contourArea(contour)
-        if area > blob_thershold:
-            contour_list.append(contour)
-
-    cv2.drawContours(original_frame, contour_list, -1, (255, 0, 255), 5)
-
-    if debug:
-        cv2.imshow('Saturation Image', saturation)
-        cv2.imshow('Thresholded Image', thresholded)
-        cv2.imshow('Objects Detected', original_frame)
 
 
 def color_transfer(source, target, clip=True, preserve_paper=True):
