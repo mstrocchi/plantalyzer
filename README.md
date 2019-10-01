@@ -1,4 +1,7 @@
-# Plantalyzer V1.0
+# Plantalyzer v1.0
 
-### Documentation is still under construction and dependencies to run the project need to be fixed. 
+### Documentation is still under construction.
+
+![Plantalyzer screenshot](venv/resources/readme/screenshot.png)
+
 ### For questions email: m.strocchi@student.tudelft.nl
