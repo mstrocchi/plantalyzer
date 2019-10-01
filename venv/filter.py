@@ -5,8 +5,8 @@ import numpy as np
 
 
 imageScaleFactor = 45
-reference_image = cv2.imread("resources/4K/002.jpeg")
-dir = 'resources/4K/0*.jpeg'
+reference_image = cv2.imread("resources/dataset/002.jpeg")
+dir = 'resources/dataset/0*.jpeg'
 
 # Overall filter values to isolate for sick leaves + FPs
 LABmin = np.array([68, 123, 138], np.uint8)
