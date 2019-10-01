@@ -6,7 +6,7 @@ import numpy as np
 
 imageScaleFactor = 45
 reference_image = cv2.imread("resources/4K/002.jpeg")
-dir = 'resources/FinalTest/0*.jpeg'
+dir = 'resources/4K/0*.jpeg'
 
 # Overall filter values to isolate for sick leaves + FPs
 LABmin = np.array([68, 123, 138], np.uint8)
@@ -15,7 +15,7 @@ LABmax = np.array([255, 162, 255], np.uint8)
 # Range filter values for healthy leaves
 LABmin_healthy = np.array([0, 83, 124], np.uint8)
 LABmax_healthy = np.array([255, 129, 188], np.uint8)
-# LABmax_healthy = np.array([192, 124, 171], np.uint8)
+# OLD --- LABmax_healthy = np.array([192, 124, 171], np.uint8)
 
 # Range filter values for terrain
 LABmin_terrain = np.array([0, 129, 0], np.uint8)
@@ -27,14 +27,17 @@ HSVmax_yellow = np.array([33, 255, 255], np.uint8)
 
 
 def stackingWindows():
+    """
+    Stacks the 4 panels that represent the keypoints of
+    the filtering pipeline
+
+    """
     space = 50
     offset = 70
     cv2.moveWindow("Original image", space, space)
-    cv2.moveWindow("Keypoints original", space, hsize + space + offset) #space, hsize + space + offset
+    cv2.moveWindow("Keypoints original", space, hsize + space + offset)
     cv2.moveWindow("Color matched", wsize + space, space)
-    cv2.moveWindow("Keypoints Dark", wsize + space, hsize + space + offset) #wsize + space, hsize + space + offset)
-
-    return
+    cv2.moveWindow("Keypoints Dark", wsize + space, hsize + space + offset)
 
 
 def filterInRange(frame, min, max, colorMode):
@@ -45,9 +48,9 @@ def filterInRange(frame, min, max, colorMode):
     :param frame: BGR image.
     :param min: min color val.
     :param max: max color val.
-    :param colorMode: Color space conversion
-    :return: filtered frame in BGR
-    returns image with pixels NOT in range
+    :param colorMode: Color space conversion.
+    :return: filtered frame in BGR with pixels NOT in range
+
     """
 
     tempFrame = cv2.cvtColor(frame, colorMode)
@@ -68,9 +71,10 @@ def filterNotInRange(frame, min, max, colorMode):
     :param frame: BGR image.
     :param min: min color val.
     :param max: max color val.
-    :param colorMode: Color space conversion
+    :param colorMode: Color space conversion.
     :return: filtered frame in BGR
     returns image with pixels in range
+
     """
 
     tempFrame = cv2.cvtColor(frame, colorMode)
@@ -92,7 +96,10 @@ def histogram_equalize(img):
 
     :param img: BGR image.
     :return: histogram equalized BGR image.
+
     """
+
+    # TODO: delete this function
 
     img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
 
@@ -108,21 +115,53 @@ def histogram_equalize(img):
     return img_output
 
 
-# dilatation followed by erosion (fills small gaps)
 def closing(img, kernel):
+    """
+    Dilatation followed by erosion, fills small holes in image
+    based on kernel size.
+
+    :param img: frame.
+    :param kernel: size of the filling element.
+    :return: post-processed frame.
+
+    """
     return cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
 
 
-# erosion followed by dilatation (deletes spots on background)
 def opening(img, kernel):
+    """
+    Erosion followed by dilatation, deletes spots on background
+    based on kernel size.
+
+    :param img: frame.
+    :param kernel: size of the filling element.
+    :return: post-processed frame.
+
+    """
     return cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
 
 
 def differentialNode(input, filter):
+    """
+    Method that takes the
+
+    :param input: frame.
+    :param filter: what is going to be removed.
+    :return: post-processed frame.
+
+    """
     return cv2.subtract(input, filter)
 
 
-def filteringEngine(original, debug=True):
+def filteringEngine(original, debug=False):
+    """
+    Main filtering pipeline for a frame.
+
+    :param original: frame to filter.
+    :param debug: shows all intermediate steps in single panels.
+    :return: post-processed frame.
+
+    """
 
     processedImage1 = filterNotInRange(original, LABmin_healthy, LABmax_healthy, cv2.COLOR_BGR2LAB)
     processedImage2 = filterNotInRange(original, LABmin_terrain, LABmax_terrain, cv2.COLOR_BGR2LAB)
@@ -142,19 +181,28 @@ def filteringEngine(original, debug=True):
     out = opening(temp, kernel)
 
     if debug:
-        # cv2.imshow('processedImage1', processedImage1)
-        # cv2.imshow('processedImage2', processedImage2)
+        cv2.imshow('processedImage1', processedImage1)
+        cv2.imshow('processedImage2', processedImage2)
         cv2.imshow('processedImage3', processedImage3)
-        # cv2.imshow('sum1', sum1)
-        # cv2.imshow('sub1', sub1)
-        # cv2.imshow('processedImage', processedImage)
-        # cv2.imshow('sum2', sum2)
-        # cv2.imshow('out', out)
+        cv2.imshow('sum1', sum1)
+        cv2.imshow('sub1', sub1)
+        cv2.imshow('processedImage', processedImage)
+        cv2.imshow('sum2', sum2)
+        cv2.imshow('out', out)
 
     return out
 
 
 def blob_detector(filtered_frame, original_frame):
+    """
+    Detects blobs. Uses as reference image for finding blobs filtered_frame
+    and draws red circles in original frame.
+
+    :param filtered_frame: frame post-processed.
+    :param original_frame: inital frame.
+    :return: returns image with circles drawn both on filtered_frame and
+    original_frame.
+    """
 
     # create a bi-color image.
     hsv = cv2.cvtColor(filtered_frame, cv2.COLOR_BGR2HSV)
@@ -181,7 +229,8 @@ def blob_detector(filtered_frame, original_frame):
 
     return keypointsOriginal, keypointsDark
 
-
+# TODO check that this function is indeed useless, if this is the case
+# delete this
 def contour_blob(filtered_frame, original_frame, blob_thershold, debug=False):
 
     hsv = cv2.cvtColor(filtered_frame, cv2.COLOR_BGR2HSV)
@@ -234,6 +283,7 @@ def color_transfer(source, target, clip=True, preserve_paper=True):
     -------
     transfer: NumPy array
         OpenCV image (w, h, 3) NumPy array (uint8)
+
     """
     # convert the images from the RGB to L*ab* color space, being
     # sure to utilizing the floating point data type (note: OpenCV
@@ -293,6 +343,7 @@ def image_stats(image):
     -------
     Tuple of mean and standard deviations for the L*, a*, and b*
     channels, respectively
+
     """
     # compute the mean and standard deviation of each channel
     (l, a, b) = cv2.split(image)
@@ -316,6 +367,7 @@ def _min_max_scale(arr, new_range=(0, 255)):
     -------
     NumPy array that has been scaled to be in
     [new_range[0], new_range[1]] range
+
     """
     # get array's current min and max
     mn = arr.min()
