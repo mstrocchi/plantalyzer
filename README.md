@@ -4,7 +4,7 @@
 
 ### Overview 
 
-This project allows meant to be a fast way to spot and count plants affected by Fusarium wilt in large greenhouses using drones with a common camera working on visible-light spectrum. 
+This project is meant to be a fast way to spot and count plants affected by Fusarium wilt in large greenhouses using drones with a common camera working on visible-light spectrum. 
 The program is based upon OpenCV library and uses various filters and image processing techniques to spot yellow-reddish leaves.
 
 
