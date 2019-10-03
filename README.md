@@ -1,7 +1,5 @@
 # Plantalyzer v1.0
 
-## <--- Documentation is still under construction. --->
-
 ### Overview 
 
 This project is meant to be a fast way to spot and count plants affected by Fusarium wilt in large greenhouses using drones with a camera working on visible-light spectrum. 
