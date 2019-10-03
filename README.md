@@ -7,6 +7,9 @@
 This project is meant to be a fast way to spot and count plants affected by Fusarium wilt in large greenhouses using drones with a common camera working on visible-light spectrum. 
 The program is based upon OpenCV library and uses various filters and image processing techniques to spot yellow-reddish leaves.
 
+![Plantalyzer screenshot](venv/resources/readme/screenshot.png)
+
+Dataset photos are courtesy of Applied Drone Innovations B.V.
 
 ### 1. Setup the project
 
@@ -26,15 +29,6 @@ Go to the directory /venv,
 and run the project 
 
 `python filter.py ENV`
-
-You should see something similar appearing
-
-![Plantalyzer screenshot](venv/resources/readme/screenshot.png)
-
-Dataset photos are courtesy of Applied Drone Innovations B.V.
-
-
-
 
 
 ### For questions email: m.strocchi@student.tudelft.nl
