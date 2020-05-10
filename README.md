@@ -1,32 +1,48 @@
-# Plantalyzer v1.0
+# Sick plants detector
 
-### Overview 
+<div align="center">
+
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/opencv-python)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
+
+## Overview 
 
 This project is meant to be a fast way to spot and count plants affected by Fusarium wilt in large greenhouses using drones with a camera working on visible-light spectrum. 
 The program is based upon OpenCV library and uses various filters and image processing techniques to spot yellow-reddish leaves.
 
-![Plantalyzer screenshot](venv/resources/readme/screenshot.png)
+![Plantalyzer screenshot](resources/readme/screenshot.png)
 
-Dataset photos are courtesy of Applied Drone Innovations B.V.
+Aerial photos are courtesy of [Applied Drone Innovations B.V.](https://applieddroneinnovations.nl/)
 
-### 1. Setup the project
+## Run the code
 
-The project is set up in a virtual environmet, this means that you already have all the packages you need inside the directory /venv.
-The only package you are required to install is Python's virtual environment tool. You can do this by typing:
+1) Open a shell window and clone the project.
+    ```bash
+    $ git clone https://github.com/mstrocchi/sick-plants-detector.git
+    ```
 
-`pip install virtualenv`
+2) Get into the project's root.
+    ```bash
+    $ cd sick-plants-detector
+    ``` 
 
-Now you are good to go! 
+3) Install the required packages.
+    ```bash
+    $ pip install -r requirements.txt 
+    ``` 
 
-### 2. Run the project
+4) Run it with Python 3.
+    ```bash
+    $ python3 sick-plants-detector.py
+    ```
 
-Go to the directory /venv,
+## Author
 
-`cd venv`
+**Mattia Strocchi** - [m.strocchi@student.tudelft.nl](mailto:m.strocchi@student.tudelft.nl) 
 
-and run the project 
+## License
 
-`python filter.py ENV`
+**FID2WAV** is available under the MIT license. See the [LICENSE](https://github.com/mstrocchi/fid-to-wav/blob/master/LICENSE.md) file for more info.
 
-
-### For questions email: m.strocchi@student.tudelft.nl
