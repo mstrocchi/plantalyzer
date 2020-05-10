@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/Users/mattiastrocchi/Desktop/ADI temp/1st_try/venv/bin/python3" "$0" "$@"
-' '''
+#!/Users/mattiastrocchi/Desktop/personal-coding-projects/sick-plants-detector/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

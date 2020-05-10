@@ -1,4 +1,4 @@
-#!"/Users/mattiastrocchi/Desktop/ADI temp/1st_try/venv/bin/python"
+#!/Users/mattiastrocchi/Desktop/personal-coding-projects/sick-plants-detector/venv/bin/python
 # EASY-INSTALL-ENTRY-SCRIPT: 'pip==19.0.3','console_scripts','pip'
 __requires__ = 'pip==19.0.3'
 import re
