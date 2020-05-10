@@ -12,7 +12,7 @@
 This project is meant to be a fast way to spot and count plants affected by Fusarium wilt in large greenhouses using drones with a camera working on visible-light spectrum. 
 The program is based upon OpenCV library and uses various filters and image processing techniques to spot yellow-reddish leaves.
 
-![Plantalyzer screenshot](resources/readme/screenshot.png)
+![Sick Plants Detector screenshot](resources/readme/screenshot.png)
 
 Aerial photos are courtesy of [Applied Drone Innovations B.V.](https://applieddroneinnovations.nl/)
 
@@ -20,12 +20,12 @@ Aerial photos are courtesy of [Applied Drone Innovations B.V.](https://applieddr
 
 1) Open a shell window and clone the project.
     ```bash
-    $ git clone https://github.com/mstrocchi/sick-plants-detector.git
+    $ git clone https://github.com/mstrocchi/plantalyzer.git
     ```
 
 2) Get into the project's root.
     ```bash
-    $ cd sick-plants-detector
+    $ cd plantalyzer
     ``` 
 
 3) Install the required packages.
@@ -44,5 +44,5 @@ Aerial photos are courtesy of [Applied Drone Innovations B.V.](https://applieddr
 
 ## License
 
-**FID2WAV** is available under the MIT license. See the [LICENSE](https://github.com/mstrocchi/fid-to-wav/blob/master/LICENSE.md) file for more info.
+This project is available under the MIT license. See the [LICENSE](https://github.com/mstrocchi/plantalyzer/blob/master/LICENSE.md) file for more info.
 
