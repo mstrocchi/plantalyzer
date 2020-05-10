@@ -9,12 +9,12 @@
 
 ## Overview 
 
-This project is meant to be a fast way to spot and count plants affected by Fusarium wilt in large greenhouses using drones with a camera working on visible-light spectrum. 
-The program is based upon OpenCV library and uses various filters and image processing techniques to spot yellow-reddish leaves.
+This project is meant to be a fast way to spot and count plants affected by Fusarium wilt in large greenhouses.
+A drone with a camera working on visible-light spectrum was used to shoot the images, 
+which are courtesy of [Applied Drone Innovations B.V.](https://applieddroneinnovations.nl/) 
+The program is based upon the OpenCV library and uses various filters and image processing techniques to spot yellow-reddish leaves.
 
 ![Sick Plants Detector screenshot](resources/readme/screenshot.png)
-
-Aerial photos are courtesy of [Applied Drone Innovations B.V.](https://applieddroneinnovations.nl/)
 
 ## Run the code
 
